@@ -8,6 +8,7 @@ import Home from "./components/header/Home";
 import Catalogue from "./components/Catalogue";
 import {useState} from "react";
 import {registerUser} from "./api/userAPI.js";
+import Details from "./components/Details.jsx";
 
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
                 {<Route path="/login" element={<Login logUser={logUser}/>} />}
                 {<Route path="/register" element={<Register logUser={logUser}/>} />}
                 {<Route path="/create" element={<Create />} />}
-                {<Route path="/edit" element={<Edit />} />}
+                {<Route path="/games/edit/:id" element={<Edit />} />}
+                {<Route path="/games/:id" element={<Details isUserLoggedIn={isUserLoggedIn}/>} />}
 
             </Routes>
         </main>

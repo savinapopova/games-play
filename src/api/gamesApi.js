@@ -32,3 +32,12 @@ export async function createGame(game) {
 
     return data;
 }
+
+export async function getGameById(id) {
+    const response = await fetch(`${baseUrl}/${id}`);
+    const data = await response.json();
+
+    console.log(data);
+
+    return data;
+}
