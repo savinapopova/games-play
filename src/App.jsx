@@ -32,9 +32,9 @@ function App() {
                 {<Route path="/games" element={<Catalogue />} />}
                 {<Route path="/login" element={<Login logUser={logUser}/>} />}
                 {<Route path="/register" element={<Register logUser={logUser}/>} />}
-                {<Route path="/create" element={<Create />} />}
-                {<Route path="/games/edit/:id" element={<Edit />} />}
-                {<Route path="/games/:id" element={<Details isUserLoggedIn={isUserLoggedIn}/>} />}
+                {<Route path="/create" element={<Create logUser={logUser}/>} />}
+                {<Route path="/games/edit/:id" element={<Edit logUser={logUser}/>} />}
+                {<Route path="/games/:id" element={<Details isUserLoggedIn={isUserLoggedIn} logUser={logUser}/>} />}
 
             </Routes>
         </main>

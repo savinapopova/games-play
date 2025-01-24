@@ -1,12 +1,13 @@
-import {getGameById} from "../api/gamesApi.js";
+import {deleteGame, getGameById} from "../api/gamesApi.js";
 import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 
-export default function Details({isUserLoggedIn}) {
+export default function Details({isUserLoggedIn, logUser}) {
 
     const [game, setGame] = useState({});
     const {id} = useParams();
+    const navigate = useNavigate();
 
     console.log(id);
 
@@ -18,6 +19,18 @@ export default function Details({isUserLoggedIn}) {
             })
             .catch(err => alert(err));
     }, [id]);
+
+    const deleteGameHandler = () => {
+        console.log("DeleteGameHandler");
+        deleteGame(id, logUser)
+            .then(res => {
+                console.log(res);
+                navigate('/');
+            })
+            .catch(e => alert(e.message));
+
+
+    }
 
     return (
         <section id="game-details">
@@ -38,7 +51,7 @@ export default function Details({isUserLoggedIn}) {
                 {isUserLoggedIn
                 ? <div className="buttons">
                         <Link to={'/games/edit/' + id} className="button">Edit</Link>
-                        <a href="#" className="button">Delete</a>
+                        <Link onClick={deleteGameHandler} to={'/'} className="button">Delete</Link>
                     </div>
                 : null
                 }

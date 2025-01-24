@@ -3,7 +3,7 @@ import {validateGame} from "../utils.js";
 import {createGame} from "../api/gamesApi.js";
 import {useNavigate} from "react-router-dom";
 
-export default function Create() {
+export default function Create({logUser}) {
 
     const initialFormData = {
         title: '',
@@ -38,7 +38,7 @@ export default function Create() {
 
         try {
             const newGame = validateGame({...game});
-            createGame(newGame)
+            createGame(newGame, logUser)
                 .then(res => {
                     console.log(res);
                     navigate('/');

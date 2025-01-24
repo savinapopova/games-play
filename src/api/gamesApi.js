@@ -19,7 +19,7 @@ export async function getAllGames() {
     return Object.values(data);
 }
 
-export async function createGame(game) {
+export async function createGame(game, logUser) {
     const response = await  fetch(baseUrl, {
         method: 'POST',
         headers: {
@@ -31,6 +31,7 @@ export async function createGame(game) {
 
     if (response.status === 403) {
         localStorage.clear();
+        logUser(false);
         throw new Error('You are not authorized to edit this game');
     }
 
@@ -39,7 +40,7 @@ export async function createGame(game) {
     return data;
 }
 
-export async function editGame(game, id) {
+export async function editGame(game, id, logUser) {
     game._id = id;
     const response = await  fetch(`${baseUrl}/${id}`, {
         method: 'PUT',
@@ -52,7 +53,7 @@ export async function editGame(game, id) {
 
     if (response.status === 403) {
         localStorage.clear();
-
+        logUser(false);
         throw new Error('You are not authorized to edit this game');
     }
 
@@ -68,6 +69,25 @@ export async function getGameById(id) {
     const data = await response.json();
 
     console.log(data);
+
+    return data;
+}
+
+export async function deleteGame(id, logUser) {
+    const response = await fetch(`${baseUrl}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'X-Authorization': JSON.parse(localStorage.getItem('user')).accessToken
+        }
+    });
+
+    if (response.status === 403) {
+        localStorage.clear();
+        logUser(false);
+        throw new Error('You are not authorized to delete this game');
+    }
+
+    const data = await response.json();
 
     return data;
 }

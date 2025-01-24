@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {createGame, editGame, getGameById} from "../api/gamesApi.js";
 import {validateGame} from "../utils.js";
 
-export default function Edit() {
+export default function Edit({logUser}) {
 
     const [game, setGame] = useState({
         title: '',
